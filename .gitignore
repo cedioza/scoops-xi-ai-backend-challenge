@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data (if any)
+*.db
+*.sqlite3
+
+# Docker
+.dockerignore
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+scoopsxi-dataset-20250123.json
+tests/
+brain/
+.agent/
+.gemini/
+diagnostic_live.py
+diagnostic_metrics.py
+test_live_api.py
+compliance_audit.md
+best_practices_report.md
+demo_guide.md
+implementation_plan.md
+task.md
+walkthrough.md
