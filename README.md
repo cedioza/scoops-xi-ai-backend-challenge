@@ -94,6 +94,36 @@ Accede a la documentación interactiva en: `http://localhost:8000/docs`
 
 ---
 
+## 🎖️ Puntos Extra: Infraestructura y Despliegue (Roadmap)
+
+Aunque el proyecto es 100% funcional en local y Docker, su arquitectura está diseñada para ser desplegada en AWS de forma automatizada:
+
+### 2. Diagrama de Arquitectura Cloud (Propuesto)
+
+```mermaid
+graph LR
+    Dev[Developer] -->|Git Push| GH[GitHub Repo]
+    GH -->|Trigger| GHA[GitHub Actions]
+    GHA -->|Build & Test| ECR[Amazon ECR]
+    GHA -->|Infrastructure as Code| SAM[AWS SAM / CDK]
+    SAM -->|Deploy| Lambda[AWS Lambda / ECS]
+    Lambda -->|Read/Write| DB[(Amazon DynamoDB)]
+    Client[User] -->|Request| APIGW[API Gateway]
+    APIGW -->|Proxy| Lambda
+```
+
+### 3. Opciones de Despliegue en AWS
+*   **Serverless (AWS Lambda)**: Utilizando la librería `mangum` para adaptar FastAPI a Lambda. Es la opción más costo-eficiente para este nivel de tráfico.
+*   **Contenedores (AWS ECS Fargate)**: Ideal para cargas de trabajo constantes. Se utilizaría la imagen de Docker actual y se desplegaría detrás de un Application Load Balancer (ALB).
+
+### 3. Pipeline de CI/CD
+Propuesta de automatización mediante **GitHub Actions**:
+1.  **Linter/Test**: Ejecución de `pytest` en cada Pull Request.
+2.  **Build**: Creación de la imagen de Docker en Amazon ECR.
+3.  **Deploy**: Actualización del stack mediante `sam deploy` o `cdk deploy`.
+
+---
+
 ## 🧪 Tests
 
 ```bash
